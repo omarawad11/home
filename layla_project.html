@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layla - AI powered English Instructor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f7f7f7;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #ec7e10;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 1rem 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: 'Raleway', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .content-container {
+            width: 90%;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .box-container {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .box-container h2 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #343a40;
+        }
+
+        .box-container p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 25px;
+            background-color: #ff6f61;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #e65b50;
+            transform: translateY(-2px);
+        }
+
+        .chat-container {
+            width: 90%; /* Adjusted width */
+            max-width: 600px; /* Maximum width for chat container */
+            margin: 0 auto; /* Center the chat container */
+        }
+
+        .messages {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            height: 300px; /* Original height */
+            overflow-y: auto;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+
+        .messages p {
+            margin: 0.5rem 0;
+            text-align: left;
+            font-size: 1rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            margin-right: 1rem;
+            outline: none;
+            background-color: #fff;
+            color: #333;
+            transition: border-color 0.3s;
+        }
+
+        .input-container input:focus {
+            border-color: #ff6f61;
+        }
+
+        .input-container button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            background-color: #ff6f61;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            outline: none;
+        }
+
+        .input-container button:hover {
+            background-color: #e65b50;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .box-container h2 {
+                font-size: 1.25rem;
+            }
+
+            .cta-button {
+                padding: 0.75rem 1.25rem;
+            }
+
+            .input-container input {
+                padding: 0.75rem;
+            }
+
+            .input-container button {
+                padding: 0.75rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Layla - AI powered English Instructor</h1>
+    </header>
+    <div class="content-container">
+        <div class="box-container">
+            <h2>Welcome to Layla</h2>
+            <p>Layla is an AI-powered English instructor designed to help you improve your English communication skills through interactive conversations. Whether you're a beginner or looking to refine your proficiency, Layla is here to assist you every step of the way.</p>
+            <a href="#chat" class="cta-button">Start Chatting</a>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="box-container chat-container" id="chat">
+            <div class="messages" id="messages">
+                <p><strong>Layla:</strong> Hi! How can I help you with your English today?</p>
+            </div>
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() === '') return;
+
+            const messages = document.getElementById('messages');
+            const userMessage = document.createElement('p');
+            userMessage.innerHTML = `<strong>You:</strong> ${userInput}`;
+            messages.appendChild(userMessage);
+            messages.scrollTop = messages.scrollHeight;
+
+            document.getElementById('user-input').value = '';
+
+            // Simulate a response from Layla
+            setTimeout(() => {
+                const laylaMessage = document.createElement('p');
+                laylaMessage.innerHTML = `<strong>Layla:</strong> ${getLaylaResponse(userInput)}`;
+                messages.appendChild(laylaMessage);
+                messages.scrollTop = messages.scrollHeight;
+            }, 1000);
+        }
+
+        function getLaylaResponse(input) {
+            // This function would be replaced by actual chatbot logic
+            const responses = {
+                'hello': 'Hello! How can I assist you today?',
+                'how are you': 'I am just a bot, but I am here to help you with your English!',
+                'what is your name': 'My name is Layla, your AI-powered English instructor.',
+            };
+
+            const lowerCaseInput = input.toLowerCase();
+            return responses[lowerCaseInput] || "I'm not sure how to respond to that. Can you ask something else?";
+        }
+    </script>
+</body>
+
+</html>

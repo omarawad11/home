@@ -17,6 +17,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .container {
@@ -47,6 +48,32 @@
         df-messenger-chat-bubble {
             --df-messenger-bubble-color: #000000;
             --df-messenger-bubble-background: #c0c0c0;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                flex-direction: column;
+                height: auto;
+                padding-bottom: 100px;
+            }
+
+            .container {
+                width: 90%;
+                padding: 10px;
+            }
+
+            df-messenger {
+                bottom: 16px;
+                right: 16px;
+                width: 90%;
+                max-width: none;
+            }
+
+            df-messenger-chat-bubble {
+                right: 16px;
+                left: 16px;
+                max-width: calc(100% - 32px);
+            }
         }
     </style>
 </head>
